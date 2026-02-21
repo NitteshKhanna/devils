@@ -76,10 +76,14 @@ export const useNFTs = () => {
 
       const nftList: NFT[] = [];
 
+      console.log(`[useNFTs] Total assets from wallet: ${assets.length}`);
+      console.log(`[useNFTs] COLLECTION_ADDRESS filter: "${COLLECTION_ADDRESS}"`);
+
       for (const asset of assets) {
         try {
           // Only process NFTs (decimals = 0, amount = 1)
           if (asset.token.amount !== BigInt(1) || asset.mint.decimals !== 0) {
+            console.log(`[useNFTs] SKIP (not NFT): ${asset.publicKey.toString()} — amount=${asset.token.amount}, decimals=${asset.mint.decimals}`);
             continue;
           }
 
@@ -87,16 +91,48 @@ export const useNFTs = () => {
           
           // Filter by collection if specified
           if (COLLECTION_ADDRESS) {
-            if (!metadata.collection || metadata.collection.__option === 'None') {
-              // NFT has no collection, skip it
+            console.log(`[useNFTs] Checking NFT: ${metadata.name} | mint: ${asset.publicKey.toString()}`);
+            console.log(`[useNFTs]   collection field:`, JSON.stringify(metadata.collection));
+
+            // Handle UMI Option type — can be { __option: 'Some', value: {...} }
+            // or directly { key, verified } depending on version
+            let collectionKey: string | null = null;
+            let collectionVerified = false;
+
+            if (!metadata.collection) {
+              console.log(`[useNFTs]   SKIP: no collection field`);
               continue;
             }
-            
-            const collection = metadata.collection.value;
-            const collectionAddress = collection.key.toString();
-            
-            // Only include if collection matches and is verified
-            if (collectionAddress !== COLLECTION_ADDRESS || !collection.verified) {
+
+            const col = metadata.collection as any;
+
+            if (col.__option === 'None') {
+              console.log(`[useNFTs]   SKIP: collection __option is None`);
+              continue;
+            } else if (col.__option === 'Some' && col.value) {
+              // Standard UMI Option: { __option: 'Some', value: { key, verified } }
+              collectionKey = col.value.key?.toString();
+              collectionVerified = col.value.verified;
+            } else if (col.key) {
+              // Direct access (some UMI versions)
+              collectionKey = col.key.toString();
+              collectionVerified = col.verified;
+            }
+
+            console.log(`[useNFTs]   collectionKey: ${collectionKey}, verified: ${collectionVerified}`);
+
+            if (!collectionKey) {
+              console.log(`[useNFTs]   SKIP: could not extract collection key`);
+              continue;
+            }
+
+            if (collectionKey !== COLLECTION_ADDRESS) {
+              console.log(`[useNFTs]   SKIP: collection mismatch (${collectionKey} !== ${COLLECTION_ADDRESS})`);
+              continue;
+            }
+
+            if (!collectionVerified) {
+              console.log(`[useNFTs]   SKIP: collection not verified`);
               continue;
             }
           }
