@@ -207,66 +207,12 @@
   font-weight: 600;
 }
 
-/* ── Responsive Header ── */
-@media (max-width: 768px) {
-  .header {
-    padding: 0.75rem;
 
-    .logo {
-      width: 2.5rem;
-    }
 
-    .logoLink {
-      column-gap: 0.5rem;
-    }
 
-    h1.title {
-      font-size: 0.85rem;
-
-      .tagline {
-        font-size: 0.65rem;
-      }
-    }
-
-    .wallet-address {
-      font-size: 12px;
-    }
-
-    .wallet-status-text {
-      font-size: 12px;
-    }
-  }
-
-  .wallet-modal {
-    padding: 16px;
-    margin: 0 12px;
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    padding: 0.5rem 0.6rem;
-
-    .logo {
-      width: 2rem;
-    }
-
-    h1.title {
-      font-size: 0.75rem;
-
-      .tagline {
-        font-size: 0.55rem;
-        margin-top: 0.15rem;
-      }
-    }
-
-    .wallet-address {
-      font-size: 11px;
-    }
-
-    .wallet-status-text {
-      font-size: 11px;
-    }
+@media screen and (min-width: 400px) {
+  .wallet-address-container
+  {
+    display: none !important;
   }
 }
