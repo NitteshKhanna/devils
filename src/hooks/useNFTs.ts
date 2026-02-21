@@ -10,31 +10,13 @@ import {
 import { publicKey } from '@metaplex-foundation/umi';
 import { NFT } from '@/types';
 
-// Convert IPFS URI to HTTP gateway URL
-const convertIpfsUri = (uri: string): string => {
-  if (!uri) return '';
-  
-  if (uri.startsWith('ipfs://')) {
-    const cid = uri.replace('ipfs://', '');
-    return `https://ipfs.io/ipfs/${cid}`;
-  }
-  
-  if (uri.includes('/ipfs/')) {
-    const parts = uri.split('/ipfs/');
-    return `https://ipfs.io/ipfs/${parts[1]}`;
-  }
-  
-  return uri;
-};
-
 // Fetch metadata from URI
 async function fetchMetadata(uri: string): Promise<any> {
   try {
-    const httpUri = convertIpfsUri(uri);
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
     
-    const response = await fetch(httpUri, { 
+    const response = await fetch(uri, { 
       signal: controller.signal,
       cache: 'force-cache' 
     });
