@@ -846,6 +846,11 @@ main {
         padding: 1rem 0.5rem;
       }
 
+      .burnProgress {
+        span {
+          font-size: 0.75rem;
+        }
+      }
       .tab1 {
         h1 {
           width: 3.5rem;
@@ -910,6 +915,9 @@ main {
       }
       .tab4 {
         .reviewColumns {
+          h3.listTitle {
+            font-size: 0.9rem;
+          }
           .reviewListBox .reviewGrid .reviewCard {
             width: 35vw;
           }
