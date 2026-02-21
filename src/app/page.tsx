@@ -150,7 +150,7 @@ export default function Home() {
             ) : (
               <>
                 {wallets
-                  .filter((w) => w.readyState === "Installed")
+                  .filter((w) => w.readyState === "Installed" || w.readyState === "Loadable")
                   .map((wallet) => (
                     <button
                       key={wallet.adapter.name}
@@ -174,12 +174,16 @@ export default function Home() {
                         />
                       )}
                       <span>
-                        {wallet.adapter.name} detected — click to connect
+                        {wallet.adapter.name}{" "}
+                        {wallet.readyState === "Installed"
+                          ? "detected — click to connect"
+                          : "— tap to open"}
                       </span>
                     </button>
                   ))}
-                {wallets.filter((w) => w.readyState === "Installed").length ===
-                  0 && (
+                {wallets.filter(
+                  (w) => w.readyState === "Installed" || w.readyState === "Loadable"
+                ).length === 0 && (
                   <p className="noWallet helvetica">
                     No wallet detected. Please install a Solana wallet like{" "}
                     <a
