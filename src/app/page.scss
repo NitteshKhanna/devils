@@ -611,3 +611,310 @@ main {
     --border-angle: 360deg;
   }
 }
+
+/* ── Responsive – Tablet (≤1024px) ── */
+@media (max-width: 1024px) {
+  main {
+    .progressBarContainer {
+      .progressBar {
+        .progressStep {
+          .progressConnector {
+            width: 4rem;
+          }
+          .stepNumber {
+            width: 1.75rem;
+            height: 1.75rem;
+            font-size: 0.75rem;
+          }
+          .stepLabel {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .tabContainer {
+      .tab {
+        width: 90%;
+      }
+
+      .tab .nftGrid {
+        gap: 1rem;
+
+        .nftCard {
+          width: 28vw;
+          img {
+            width: 26vw;
+            height: 26vw;
+          }
+        }
+      }
+
+      .tab4 {
+        .reviewColumns {
+          width: 95%;
+          .reviewListBox .reviewGrid .reviewCard {
+            width: 14vw;
+          }
+        }
+
+        div.NFTSummaryBox {
+          width: 60vw;
+        }
+      }
+    }
+  }
+}
+
+/* ── Responsive – Mobile (≤768px) ── */
+@media (max-width: 768px) {
+  main {
+    .progressBarContainer {
+      padding: 0 0.5rem;
+      overflow-x: auto;
+
+      .progressBar {
+        .progressStep {
+          .progressConnector {
+            width: 2.5rem;
+          }
+          .stepNumber {
+            width: 1.6rem;
+            height: 1.6rem;
+            font-size: 0.7rem;
+          }
+          .stepLabel {
+            font-size: 0.65rem;
+            margin-top: 0.5rem;
+          }
+        }
+      }
+    }
+
+    .tabContainer {
+      .tab {
+        width: 95%;
+        padding-top: 1.5rem;
+        height: auto;
+        min-height: 70vh;
+      }
+
+      .tab1 {
+        h1 {
+          width: 4rem;
+          height: 4rem;
+          font-size: 1.5rem;
+        }
+        h2 {
+          font-size: 1.2rem;
+        }
+        h3 {
+          font-size: 0.85rem;
+          padding: 0 0.5rem;
+        }
+        .walletList {
+          max-width: 100%;
+        }
+      }
+
+      .tab2,
+      .tab3 {
+        h2 {
+          font-size: 1.1rem;
+        }
+        h3 {
+          font-size: 0.8rem;
+        }
+      }
+
+      .tab .nftGrid {
+        gap: 0.75rem;
+        height: auto;
+        max-height: 55vh;
+        justify-content: center;
+
+        .nftCard {
+          width: 42vw;
+          img {
+            width: 40vw;
+            height: 40vw;
+          }
+          span.nftName {
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            padding: 0.2rem 0.5rem;
+          }
+        }
+      }
+
+      .tab .upgradeButton,
+      .tab .burnButton {
+        position: relative;
+        bottom: auto;
+        width: 90%;
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .tab4 {
+        h2 {
+          font-size: 1.1rem;
+        }
+
+        .reviewColumns {
+          width: 100%;
+          flex-direction: column;
+          gap: 1.5rem;
+
+          .reviewListBox {
+            width: 100%;
+            padding: 1rem;
+
+            .reviewGrid {
+              gap: 0.75rem;
+
+              .reviewCard {
+                width: 25vw;
+
+                .reviewCardName {
+                  font-size: 0.65rem;
+                  padding: 0.15rem 0.4rem;
+                }
+              }
+            }
+          }
+        }
+
+        .burnProgress {
+          flex-wrap: wrap;
+          span {
+            flex-basis: 100%;
+          }
+          .progressBarSmall {
+            flex-basis: 100%;
+          }
+        }
+
+        .navButtons {
+          flex-direction: column;
+          gap: 0.75rem;
+
+          button {
+            width: 100%;
+          }
+        }
+
+        div.NFTSummaryBox {
+          width: 90vw;
+          padding: 1.25rem 1.5rem;
+
+          h3 {
+            font-size: 0.85rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ── Responsive – Small Mobile (≤480px) ── */
+@media (max-width: 480px) {
+  main {
+    .progressBarContainer {
+      .progressBar {
+        .progressStep {
+          .progressConnector {
+            width: 1.5rem;
+          }
+          .stepNumber {
+            width: 1.4rem;
+            height: 1.4rem;
+            font-size: 0.6rem;
+            margin: 0 0.1rem;
+          }
+          .stepLabel {
+            font-size: 0.55rem;
+          }
+        }
+      }
+    }
+
+    .tabContainer {
+      .tab {
+        width: 100%;
+        padding: 1rem 0.5rem;
+      }
+
+      .tab1 {
+        h1 {
+          width: 3.5rem;
+          height: 3.5rem;
+          font-size: 1.3rem;
+        }
+        h2 {
+          font-size: 1rem;
+        }
+        h3 {
+          font-size: 0.8rem;
+        }
+        .connectWalletButton {
+          width: 80%;
+          margin-top: 1.5rem;
+        }
+        .walletList .walletOption {
+          padding: 0.75rem 1rem;
+          font-size: 0.8rem;
+          gap: 0.75rem;
+
+          .walletIcon {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+        }
+      }
+
+      .tab .nftGrid {
+        gap: 0.5rem;
+
+        .nftCard {
+          width: 44vw;
+          img {
+            width: 42vw;
+            height: 42vw;
+          }
+          span.nftName {
+            font-size: 0.65rem;
+          }
+        }
+
+        .nftCardBoderBox {
+          padding: 0.5vw;
+        }
+      }
+
+      .tab4 {
+        .reviewColumns {
+          .reviewListBox .reviewGrid .reviewCard {
+            width: 35vw;
+          }
+        }
+
+        div.NFTSummaryBox {
+          width: 95vw;
+          padding: 1rem;
+          border-radius: 16px;
+
+          h3 {
+            font-size: 0.75rem;
+          }
+
+          .NFTSummaryLine {
+            flex-direction: column;
+            gap: 0.25rem;
+            align-items: flex-start;
+          }
+        }
+      }
+    }
+  }
+}

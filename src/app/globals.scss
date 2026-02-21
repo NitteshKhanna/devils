@@ -101,3 +101,23 @@ button {
 .helvetica {
   font-family: "Helvetica", sans-serif;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.65rem 1.25rem;
+  }
+
+  .bgRedBlackHole {
+    top: auto;
+    bottom: 0;
+    height: 50vh;
+    background-size: contain;
+  }
+}
