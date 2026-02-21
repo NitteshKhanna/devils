@@ -112,7 +112,7 @@ export const useNFTs = () => {
               const offChainMetadata = await fetchMetadata(metadata.uri);
               if (offChainMetadata) {
                 name = offChainMetadata.name || name;
-                image = convertIpfsUri(offChainMetadata.image || '');
+                image = offChainMetadata.image || '';
                 description = offChainMetadata.description || '';
                 attributes = offChainMetadata.attributes || [];
               }
