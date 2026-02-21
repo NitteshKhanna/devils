@@ -1,0 +1,103 @@
+@font-face {
+  font-family: "Share Tech Mono";
+  src: url("/fonts/ShareTechMono-Regular.ttf") format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Share Tech Mono", monospace;
+  padding: 0;
+  margin: 0;
+  transition: all 0.5s ease-in-out;
+  scrollbar-color: #f43f5e4d #f43f5e26;
+}
+
+body {
+  overflow: hidden;
+  color: #f0f0f0;
+  background-color: #0a0a0f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.gray {
+  color: #444444;
+}
+
+button {
+  cursor: pointer;
+  background: linear-gradient(
+    to bottom right,
+    #10efa9 0%,
+    #6d90d0 47%,
+    #d724fd 100%
+  );
+  // color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition:
+    background-color 0.2s ease-in-out,
+    filter 0.2s ease-in-out;
+}
+
+.bgRedBlackHole {
+  position: absolute;
+  top: 50vh;
+  left: 0;
+  width: 100%;
+  height: 70vh;
+  margin: 0;
+  object-fit: none;
+  z-index: -10;
+  background-position: bottom;
+  background-image: url("/images/bgRedBlackHole.svg");
+  background-repeat: no-repeat;
+}
+
+.blueGradBG {
+  background: linear-gradient(
+    to bottom right,
+    #10efa9 0%,
+    #6d90d0 47%,
+    #d724fd 100%
+  );
+}
+
+.burnGradBG {
+  background:
+    radial-gradient(hsla(0, 0%, 100%, 0.182) 0%, #00000000 65%),
+    linear-gradient(to bottom right, #10efa9 0%, #10efa9 100%);
+}
+.upgradeGradBG {
+  background:
+    radial-gradient(hsla(0, 0%, 100%, 0.182) 0%, #00000000 65%),
+    linear-gradient(to bottom right, #d724fd 0%, #d724fd 100%);
+}
+.helvetica {
+  font-family: "Helvetica", sans-serif;
+}

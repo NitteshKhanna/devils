@@ -1,0 +1,613 @@
+main {
+  .progressBarContainer {
+    width: 100vw;
+    margin-top: 1rem;
+
+    .progressBar {
+      justify-content: space-between;
+      width: max-content;
+      .progressStep {
+        .progressConnector {
+          position: relative;
+          z-index: 1;
+          width: 6rem;
+          height: 2px;
+          border-radius: 1rem;
+          background: linear-gradient(#22c55e, hsla(142, 71%, 45%, 0.53));
+          margin-top: -2rem;
+        }
+        .stepNumber {
+          position: relative;
+          z-index: 2;
+          width: 2rem;
+          height: 2rem;
+          font-size: 0.8rem;
+          // padding: 1rem;
+          // mask-clip: circle(50%);
+          border-radius: 50%;
+          text-align: center;
+          align-content: center;
+          margin: 0 0.25rem;
+          //   background-color: white;
+          background: linear-gradient(to left, #22c55e, #16a34a);
+          //   background: linear-gradient(
+          //     to bottom right,
+          //     #10efa9 0%,
+          //     #6d90d0 47%,
+          //     #d724fd 100%
+          //   );
+          // opacity: 30%;
+        }
+
+        .stepLabel {
+          // background: white;
+          font-size: 0.9rem;
+          color: #22c55e;
+          margin-top: 1rem;
+          text-align: center;
+          flex-basis: 100%;
+          justify-content: flex-start;
+        }
+        &.inactive {
+          .stepNumber {
+            background: #1e1e2e !important;
+            border: #2a2a3e solid 2px;
+            color: #f0f0f063;
+            filter: drop-shadow(0 0 0 transparent);
+          }
+          .progressConnector {
+            background: #2a2a3e;
+          }
+          .stepLabel {
+            color: #444444;
+          }
+        }
+        &.current {
+          .stepNumber {
+            background: linear-gradient(
+              to bottom right,
+              #10efa9 0%,
+              #6d90d0 47%,
+              #d724fd 100%
+            );
+            filter: drop-shadow(0 0 0.7rem #ba41eece);
+          }
+          .stepLabel {
+            // background: white;
+            color: #30cfb6;
+          }
+        }
+      }
+    }
+  }
+  .tab {
+    width: 80%;
+    padding-top: 3rem;
+    
+      height: 78vh;
+      &.tab1 {
+        height: min-content;
+      }
+    //   overflow-y: auto;
+    .nftGrid {
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      flex-basis: 100%;
+      gap: 2rem;
+      height: 60%;
+      overflow-y: scroll;
+      .nftCardBoderBox {
+        width: 100%;
+        padding: 1vw;
+        background-color: #1e1e2e;
+        border-radius: 0.75rem;
+        justify-content: flex-start;
+      }
+      .nftCard {
+        position: relative;
+        background-color: #1e1e2e;
+        width: 22vw;
+        padding: 2px 2.5px;
+        cursor: pointer;
+        //   border: #2a2a3e solid 2px;
+        border-radius: 0.75rem;
+        // flex-direction: column;
+        &.selected {
+          background: linear-gradient(
+            to bottom right,
+            #a855f7,
+            transparent,
+            #a855f7
+          );
+        }
+        &.toBurn {
+          background: conic-gradient(
+            from var(--border-angle),
+            #f43f5e,
+            transparent 40%,
+            #f43f5e
+          );
+          animation: rotateBorder 4s linear infinite;
+        }
+        &.toUpgrade {
+          background: conic-gradient(
+            from var(--border-angle),
+            #10efa9,
+            transparent 40%,
+            #10efa9
+          );
+          animation: rotateBorder 4s linear infinite;
+        }
+        &.full {
+          background: conic-gradient(
+            from var(--border-angle),
+            #555555,
+            transparent 40%,
+            #555555
+          );
+          animation: rotateBorder 4s linear infinite;
+          opacity: 0.4;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+        img {
+          width: 20vw;
+          height: 20vw;
+          border-radius: 0.5rem;
+        }
+        span.nftName {
+          width: max-content;
+          // flex-basis: 100%;
+          text-align: start;
+          // margin-left: 1vw;
+          margin-top: 1rem;
+          padding: 0.25rem 0.75rem;
+          border-radius: 1rem;
+          background-color: #a855f718;
+          color: #a855f7;
+          // color: #f0f0f0;
+        }
+      }
+    }
+    .upgradeButton,
+    .burnButton {
+      width: 70%;
+      position: absolute;
+      bottom: 5vh;
+    }
+
+    // overflow-y: auto;
+  }
+  .tabContainer {
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    .tab1 {
+      // width: 100%;
+      h1 {
+        width: 5rem;
+        height: 5rem;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        align-content: center;
+        // padding: 2rem;
+        border-radius: 3rem;
+        border: #2a2a3e solid 2px;
+        background: linear-gradient(to bottom right, #1e1e2e, #2a1a3e);
+      }
+      h2 {
+        margin-top: 2rem;
+        flex-basis: 100%;
+        text-align: center;
+      }
+      h3 {
+        flex-basis: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        color: #666666;
+        font-weight: 400;
+      }
+      .walletList {
+        margin-top: 2rem;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 420px;
+
+        .walletOption {
+          width: 100%;
+          justify-content: flex-start;
+          gap: 1rem;
+          padding: 1rem 1.5rem;
+          background: #1e1e2e;
+          border: 2px solid #2a2a3e;
+          border-radius: 0.75rem;
+          color: #f0f0f0;
+          font-size: 0.95rem;
+          cursor: pointer;
+          transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+
+          &:hover {
+            border-color: #30cfb6;
+            box-shadow: 0 0 12px rgba(48, 207, 182, 0.25);
+          }
+
+          .walletIcon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+          }
+        }
+
+        .noWallet {
+          color: #666;
+          text-align: center;
+          font-size: 0.9rem;
+          line-height: 1.6;
+
+          a {
+            color: #30cfb6;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .connectWalletButton {
+        margin-top: 2rem;
+      }
+    }
+    .tab2,
+    .tab3 {
+      // width: 100%;
+      align-items: flex-start;
+      //   background-color: #10efa9;
+      h3 {
+        margin-top: 1rem;
+        text-align: center;
+        flex-basis: 100%;
+        color: #666666;
+        .red {
+          font-weight: 800;
+          color: #f43f5e;
+        }
+        .highlight {
+          font-weight: 800;
+          color: #a78bfa;
+        }
+      }
+      .selectionCount {
+        flex-basis: 100%;
+        text-align: center;
+        margin-top: 0.75rem;
+        padding: 0.4rem 1rem;
+        border-radius: 2rem;
+        background: rgba(244, 63, 94, 0.15);
+        border: 1px solid rgba(244, 63, 94, 0.3);
+        color: #f43f5e;
+        font-size: 0.85rem;
+        font-weight: 600;
+        width: max-content;
+      }
+      .lockBadge {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 5;
+        padding: 0.4rem 0.8rem;
+        border-radius: 0.5rem;
+        background: rgba(245, 158, 11, 0.9);
+        color: #000;
+        font-size: 0.75rem;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: 0 2px 8px rgba(245, 158, 11, 0.5);
+      }
+    }
+    .tab4 {
+      overflow-y: auto;
+    //   height: 71vh;
+      h1 {
+        width: 5rem;
+        height: 5rem;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        align-content: center;
+        // padding: 2rem;
+        border-radius: 3rem;
+        // border: #2a2a3e solid 2px;
+        color: #22c55e;
+        background-color: #0a0a0f;
+        filter: drop-shadow(0 0 0.5rem hsla(142, 71%, 45%, 0.35));
+        // background: linear-gradient(to bottom right, #1e1e2e, #2a1a3e);
+      }
+      h2 {
+        margin-top: 2rem;
+        flex-basis: 100%;
+        text-align: center;
+      }
+      h3 {
+        flex-basis: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        color: #666666;
+        font-weight: 400;
+        .red {
+          font-weight: 800;
+          color: #f43f5e;
+        }
+      }
+
+      .burnProgress {
+        flex-basis: 100%;
+        margin-top: 1.5rem;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        background: rgba(167, 139, 250, 0.1);
+        border: 1px solid rgba(167, 139, 250, 0.25);
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+
+        span {
+          color: #c4b5fd;
+          font-size: 0.85rem;
+          flex: 1;
+          flex-basis: 40%;
+        }
+
+        .progressBarSmall {
+          flex-basis: 60%;
+          height: 4px;
+          border-radius: 2px;
+          background: #2a2a3e;
+          overflow: hidden;
+
+          .progressFill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(to right, #a78bfa, #22c55e);
+            transition: width 0.5s ease;
+          }
+        }
+      }
+
+      .errorBox {
+        flex-basis: 100%;
+        margin-top: 1rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
+        background: rgba(244, 63, 94, 0.1);
+        border: 1px solid rgba(244, 63, 94, 0.3);
+
+        span {
+          color: #fda4af;
+          font-size: 0.85rem;
+        }
+      }
+
+      .navButtons {
+        margin-top: 1.5rem;
+        flex-basis: 100%;
+        gap: 1rem;
+      }
+
+      .reviewColumns {
+        width: 80%;
+        margin-top: 1.5rem;
+        gap: 2rem;
+        align-items: flex-start;
+
+        .reviewListBox {
+          flex: 1;
+          flex-direction: column;
+          padding: 1.25rem;
+          padding-bottom: 2rem;
+          border-radius: 1rem;
+          background: #12121fb8;
+          border: hsla(0, 0%, 100%, 0.06) solid 1px;
+
+          .listTitle {
+            flex-basis: 100%;
+            text-align: start;
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem 0;
+            padding-bottom: 0.75rem;
+            border-bottom: #2a2a3e solid 1px;
+
+            &.red {
+              color: #f43f5e;
+            }
+            &.violet {
+              color: #a78bfa;
+            }
+          }
+
+          .reviewGrid {
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+
+            .reviewCard {
+              width: 10vw;
+              padding: 0.1rem 0;
+              border-radius: 0.65rem;
+              .reviewCardBorderContainer {
+                width: 98%;
+                height: 98%;
+                flex-direction: column;
+                padding: 2px 2.5px;
+                border-radius: 0.75rem;
+                background-color: #0a0a0f;
+              }
+              &.toBurn {
+                background: conic-gradient(
+                  from var(--border-angle),
+                  #f43f5e,
+                  transparent 40%,
+                  #f43f5e
+                );
+                animation: rotateBorder 4s linear infinite;
+              }
+              &.toUpgrade {
+                background: conic-gradient(
+                  from var(--border-angle),
+                  #10efa9,
+                  transparent 40%,
+                  #10efa9
+                );
+                animation: rotateBorder 4s linear infinite;
+              }
+
+              img {
+                width: 100%;
+                aspect-ratio: 1;
+                border-radius: 0.5rem;
+                object-fit: cover;
+              }
+
+              .reviewCardName {
+                width: max-content;
+                text-align: center;
+                margin: 0.5rem 0;
+                margin-top: 1rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 1rem;
+                font-size: 0.75rem;
+                background-color: #a855f718;
+                color: #a855f7;
+              }
+            }
+          }
+        }
+      }
+
+      .confirmButton {
+        background: linear-gradient(135deg, #dc2626 0%, #f43f5e 100%);
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);
+
+        &:hover:not(:disabled) {
+          box-shadow: 0 6px 20px rgba(244, 63, 94, 0.5);
+          filter: brightness(1.1);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+      div.NFTSummaryBox {
+        width: 40vw;
+        padding: 1.5rem 3rem;
+        padding-bottom: 2rem;
+        border-radius: 24px;
+        background: #12121fb8;
+        margin-top: 1.5rem;
+        border: hsla(0, 0%, 100%, 0.06) solid 1px;
+        filter: drop-shadow(0 0 0.1rem #000000);
+        gap: 1rem;
+        h3 {
+          flex-basis: auto;
+          margin: 0;
+          font-size: 1rem;
+          &.title {
+            text-align: start;
+            flex-basis: 100%;
+            margin-bottom: 1rem;
+            border-bottom: #2a2a3e solid 1px;
+            padding-bottom: 0.75rem;
+          }
+        }
+        .NFTSummaryLine {
+          padding-bottom: 0.75rem;
+          border-bottom: #2a2a3e solid 1px;
+          flex-basis: 100%;
+          justify-content: space-between;
+        }
+        .gray {
+          color: #aaaaaa;
+        }
+        .red {
+          color: #f43f5e;
+        }
+        .violet {
+          color: #a78bfa;
+        }
+      }
+    }
+  }
+
+  .loadingState {
+    flex-basis: 100%;
+    margin-top: 3rem;
+    gap: 1rem;
+    // color: #666;
+    font-size: 0.9rem;
+  }
+
+  .emptyState {
+    flex-basis: 100%;
+    margin-top: 3rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .backButton {
+    background: transparent;
+    border: 1px solid #2a2a3e;
+    color: #888;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+
+    &:hover:not(:disabled) {
+      border-color: #444;
+      color: #ccc;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid #2a2a3e;
+    border-top-color: #a78bfa;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotateBorder {
+  to {
+    --border-angle: 360deg;
+  }
+}
