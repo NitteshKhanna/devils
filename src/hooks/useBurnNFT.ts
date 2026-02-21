@@ -3,17 +3,13 @@
 import { useState, useCallback } from 'react';
 import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 import { createUmi } from '@metaplex-foundation/umi-bundle-defaults';
-import {
-  mplTokenMetadata,
-  burnV1,
-  fetchDigitalAsset,
-  TokenStandard,
-  findMetadataPda,
-} from '@metaplex-foundation/mpl-token-metadata';
+import { mplCore, burnV1, fetchAssetV1 } from '@metaplex-foundation/mpl-core';
 import { publicKey, transactionBuilder } from '@metaplex-foundation/umi';
 import { walletAdapterIdentity } from '@metaplex-foundation/umi-signer-wallet-adapters';
 import { NFT } from '@/types';
 import bs58 from 'bs58';
+
+const COLLECTION_ADDRESS = process.env.NEXT_PUBLIC_COLLECTION_ADDRESS || '';
 
 /** Max burn instructions per Solana transaction (conservative to avoid size limit). */
 const BURNS_PER_TX = 3;
@@ -89,39 +85,34 @@ export const useBurnNFT = () => {
 
       try {
         const umi = createUmi(connection.rpcEndpoint)
-          .use(mplTokenMetadata())
+          .use(mplCore())
           .use(walletAdapterIdentity(wallet));
 
-        // ── 1. Fetch all assets and prepare burn params ──
+        // ── 1. Prepare burn params for MPL Core Assets ──
         setStatus(`Preparing ${nftsToBurn.length} NFTs for burning…`);
 
-        const burnItems: Array<{ nft: NFT; params: Parameters<typeof burnV1>[1] }> = [];
+        const burnItems: Array<{
+          nft: NFT;
+          params: { asset: ReturnType<typeof publicKey>; collection?: ReturnType<typeof publicKey> };
+        }> = [];
 
         for (const nft of nftsToBurn) {
           const mintPk = publicKey(nft.mint);
-          let asset;
+
+          // Verify the asset exists on-chain
           try {
-            asset = await fetchDigitalAsset(umi, mintPk);
+            await fetchAssetV1(umi, mintPk);
           } catch {
             throw new Error(`NFT "${nft.name}" not found — it may have already been burned.`);
           }
 
-          const tokenStandard = asset.metadata.tokenStandard ?? TokenStandard.NonFungible;
-
           const params: any = {
-            mint: mintPk,
-            authority: umi.identity,
-            tokenOwner: umi.identity.publicKey,
-            tokenStandard,
+            asset: mintPk,
           };
 
-          if (
-            asset.metadata.collection &&
-            asset.metadata.collection.__option === 'Some'
-          ) {
-            params.collectionMetadata = findMetadataPda(umi, {
-              mint: asset.metadata.collection.value.key,
-            })[0];
+          // If collection address is set, include it for collection-level burns
+          if (COLLECTION_ADDRESS) {
+            params.collection = publicKey(COLLECTION_ADDRESS);
           }
 
           burnItems.push({ nft, params });
