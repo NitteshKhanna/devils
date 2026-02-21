@@ -7,7 +7,7 @@ import {
 } from '@solana/wallet-adapter-react';
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
 import { clusterApiUrl } from '@solana/web3.js';
-import { SolanaMobileWalletAdapter } from '@solana-mobile/wallet-adapter-mobile';
+import { SolanaMobileWalletAdapter, createDefaultAddressSelector, createDefaultAuthorizationResultCache, createDefaultWalletNotFoundHandler } from '@solana-mobile/wallet-adapter-mobile';
 
 // import '@solana/wallet-adapter-react-ui/styles.css';
 
@@ -26,8 +26,11 @@ export const WalletProvider: FC<Props> = ({ children }) => {
   const wallets = useMemo(
     () => [
       new SolanaMobileWalletAdapter({
+        addressSelector: createDefaultAddressSelector(),
         appIdentity: { name: 'De Evils Burn' },
+        authorizationResultCache: createDefaultAuthorizationResultCache(),
         cluster: network === 'mainnet-beta' ? 'mainnet-beta' : 'devnet',
+        onWalletNotFound: createDefaultWalletNotFoundHandler(),
       }),
     ],
     [network]
