@@ -198,14 +198,13 @@ export const useBurnNFT = () => {
 
         if (!recorded) {
           console.error('Failed to record burns after retries');
-          setError(
-            `NFTs burned on-chain but recording failed. Your transaction IDs: ${signatures.join(', ')}. Please contact support.`,
-          );
+          const recordingError = `NFTs burned on-chain but recording failed. Your transaction IDs: ${signatures.join(', ')}. Please contact support with these IDs.`;
+          setError(recordingError);
           return {
-            success: true,
+            success: false,
             signatures,
             burnedCount: successfullyBurned.length,
-            error: 'Recording failed',
+            error: recordingError,
           };
         }
 
