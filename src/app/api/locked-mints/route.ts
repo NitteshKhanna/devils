@@ -21,8 +21,16 @@ function isAllowedOrigin(origin: string | null): boolean {
 export async function GET(request: NextRequest) {
   try {
     // Origin guard — block direct API calls
-    if (!isAllowedOrigin(request.headers.get('origin'))
-      && !isAllowedOrigin(request.headers.get('referer')?.replace(/\/[^/]*$/, '') ?? null)) {
+    const origin = request.headers.get('origin');
+    const referer = request.headers.get('referer');
+    
+    // Extract origin from referer (e.g., https://example.com/path → https://example.com)
+    const refererOrigin = referer ? new URL(referer).origin : null;
+
+    const originAllowed = isAllowedOrigin(origin) || isAllowedOrigin(refererOrigin);
+    
+    if (!originAllowed) {
+      console.warn('[locked-mints] Origin check failed:', { origin, refererOrigin });
       return NextResponse.json(
         { success: false, error: 'Forbidden' },
         { status: 403 },
