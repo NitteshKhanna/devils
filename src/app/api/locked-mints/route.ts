@@ -4,11 +4,24 @@ import { getBurntNFTsCollection } from '@/lib/mongodb';
 
 function isAllowedOrigin(origin: string | null): boolean {
   if (!origin) return false;
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL;
+
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || '';
+  
+  // Try exact match first
   if (appUrl && origin === appUrl) return true;
+  
+  // If appUrl doesn't have protocol, try adding https://
+  if (appUrl && !appUrl.startsWith('http')) {
+    if (origin === `https://${appUrl}` || origin === `http://${appUrl}`) {
+      return true;
+    }
+  }
+
+  // Development check
   if (process.env.NODE_ENV === 'development') {
     return /^https?:\/\/localhost(:\d+)?$/.test(origin);
   }
+
   return false;
 }
 
@@ -20,17 +33,32 @@ function isAllowedOrigin(origin: string | null): boolean {
  */
 export async function GET(request: NextRequest) {
   try {
-    // Origin guard — block direct API calls
+    // Get origin from request headers
     const origin = request.headers.get('origin');
     const referer = request.headers.get('referer');
     
-    // Extract origin from referer (e.g., https://example.com/path → https://example.com)
-    const refererOrigin = referer ? new URL(referer).origin : null;
+    // Extract origin from referer
+    let refererOrigin: string | null = null;
+    if (referer) {
+      try {
+        refererOrigin = new URL(referer).origin;
+      } catch {
+        // Invalid referer URL, skip it
+      }
+    }
+
+    // Log for debugging (remove in production if needed)
+    console.log('[locked-mints] Origin validation:', {
+      origin,
+      refererOrigin,
+      appUrl: process.env.NEXT_PUBLIC_APP_URL,
+      nodeEnv: process.env.NODE_ENV,
+    });
 
     const originAllowed = isAllowedOrigin(origin) || isAllowedOrigin(refererOrigin);
     
     if (!originAllowed) {
-      console.warn('[locked-mints] Origin check failed:', { origin, refererOrigin });
+      console.warn('[locked-mints] Origin rejected:', { origin, refererOrigin });
       return NextResponse.json(
         { success: false, error: 'Forbidden' },
         { status: 403 },
